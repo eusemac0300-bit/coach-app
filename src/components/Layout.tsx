@@ -65,7 +65,7 @@ export const MobileNav = () => {
     { icon: Users, label: 'Clientes', path: '/clientes' },
     { icon: Calendar, label: 'Agenda', path: '/agenda' },
     { icon: DollarSign, label: 'Cierre', path: '/cierre-mes' },
-    { icon: Wallet, label: 'Finanzas', path: '/finanzas' },
+    { icon: UserCircle, label: 'Perfil', path: '/perfil' },
   ];
 
   return (

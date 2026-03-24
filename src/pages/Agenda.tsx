@@ -60,58 +60,59 @@ const SessionItem = ({ session, onStart, selectedDate, dbAttendances, setDbAtten
 
   return (
     <div className={`relative flex flex-col group transition-all border-l-4 ${isNow ? 'bg-neon-green/5 border-neon-green' : 'hover:bg-white/5 border-transparent'}`}>
-      <div className="flex items-start gap-3 p-4 md:p-8">
+      
+      {/* Fila superior: Hora + Nombre/Tipo */}
+      <div className="flex items-center gap-3 px-4 pt-4 md:px-8 md:pt-8">
         {/* Hora */}
-        <div className="w-14 md:w-24 text-right shrink-0">
+        <div className="text-right shrink-0 min-w-[48px]">
           <p className={`font-display font-black text-xl md:text-3xl leading-none ${isNow ? 'text-neon-green animate-pulse' : 'text-white/40'}`}>
             {session.time}
           </p>
-          <span className="text-white/40 text-[9px] font-bold font-display uppercase tracking-widest">
+          <span className="text-white/30 text-[8px] font-bold font-display uppercase tracking-widest">
             {parseInt(session.time.split(':')[0]) < 12 ? 'AM' : 'PM'}
           </span>
         </div>
 
-        {/* Contenido principal */}
+        {/* Separador vertical */}
+        <div className="w-px h-10 bg-white/10 shrink-0" />
+
+        {/* Nombre y tipo */}
         <div className="flex-1 min-w-0">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <h4 className="font-display font-black text-base md:text-3xl uppercase tracking-tighter italic -skew-x-12 truncate">{session.athlete}</h4>
+          <h4 className="font-display font-black text-base md:text-2xl uppercase tracking-tighter italic -skew-x-12 truncate leading-tight">
+            {session.athlete}
+          </h4>
+          <div className="flex flex-wrap items-center gap-2 mt-0.5">
             {session.group && (
               <span className="bg-neon-blue/10 text-neon-blue text-[9px] font-display font-black px-2 py-0.5 rounded-full border border-neon-blue/20 uppercase tracking-widest flex items-center">
-                <Users size={10} className="mr-1" />{session.group}
+                <Users size={9} className="mr-1" />{session.group}
               </span>
             )}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            <div className="flex items-center gap-1 text-white/40 text-[9px] font-display font-black uppercase tracking-widest bg-white/5 px-2 py-1 rounded-full">
-              <Clock size={10} />
-              <span>{session.duration} MIN</span>
-            </div>
-            <span className="text-[9px] font-display font-black uppercase tracking-widest text-neon-blue/60">{session.type}</span>
+            <span className="text-[9px] font-display font-black uppercase tracking-widest text-white/30">{session.duration}min · {session.type}</span>
           </div>
         </div>
+      </div>
 
-        {/* Acciones - stacked on mobile */}
-        <div className="flex flex-col md:flex-row items-end md:items-center gap-2 shrink-0">
-          <button 
-            onClick={() => setIsReprogramming(true)}
-            className="p-2 md:p-4 bg-white/10 text-white/60 rounded-xl hover:bg-white/20 hover:text-white transition-all flex flex-col items-center"
-            title="Reprogramar"
-          >
-            <CalendarIcon size={14} />
-            <span className="text-[7px] font-black uppercase tracking-widest hidden md:block">Mover</span>
-          </button>
-          <button 
-            onClick={() => onStart(session.id, session.group ? 'grupo' : 'atleta')}
-            className={`flex items-center gap-1 px-3 md:px-8 py-2 md:py-4 font-display font-black text-xs uppercase italic -skew-x-12 transition-all ${
-              isNow 
-              ? 'bg-neon-green text-black hover:scale-110 shadow-[0_10px_30px_rgba(156,255,147,0.3)]' 
-              : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
-            }`}
-          >
-            <Play size={14} fill={isNow ? "black" : "currentColor"} />
-            <span>ENTRAR</span>
-          </button>
-        </div>
+      {/* Fila inferior: Acciones */}
+      <div className="flex items-center justify-end gap-2 px-4 pb-4 pt-2 md:px-8 md:pb-8">
+        <button 
+          onClick={() => setIsReprogramming(true)}
+          className="p-2 bg-white/5 text-white/40 rounded-lg hover:bg-white/10 hover:text-white transition-all flex items-center gap-1"
+          title="Reprogramar"
+        >
+          <CalendarIcon size={13} />
+          <span className="text-[9px] font-black uppercase tracking-widest">Mover</span>
+        </button>
+        <button 
+          onClick={() => onStart(session.id, session.group ? 'grupo' : 'atleta')}
+          className={`flex items-center gap-2 px-4 py-2 font-display font-black text-xs uppercase italic -skew-x-12 rounded-lg transition-all ${
+            isNow 
+            ? 'bg-neon-green text-black hover:scale-105 shadow-[0_4px_20px_rgba(156,255,147,0.3)]' 
+            : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
+          }`}
+        >
+          <Play size={13} fill={isNow ? "black" : "currentColor"} />
+          <span>ENTRAR</span>
+        </button>
       </div>
 
       {session.attendees.length > 0 && (
