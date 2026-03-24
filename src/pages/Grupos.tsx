@@ -89,17 +89,17 @@ export const Grupos = () => {
 
 
   return (
-    <div className="space-y-8 pb-20">
-      <header className="flex justify-between items-end">
+    <div className="space-y-6 md:space-y-12 pb-20">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 md:gap-4">
         <div>
-          <h2 className="text-5xl font-display font-black tracking-tighter italic -skew-x-12 bg-gradient-to-r from-neon-green to-neon-blue bg-clip-text text-transparent">
+          <h2 className="text-3xl md:text-5xl font-display font-black tracking-tighter italic -skew-x-12 bg-gradient-to-r from-neon-green to-neon-blue bg-clip-text text-transparent leading-none">
             GRUPOS DE ENTRENAMIENTO
           </h2>
-          <p className="text-white/70 font-display font-bold uppercase tracking-widest mt-2">Gestión de Escuadras y Horarios Colectivos</p>
+          <p className="text-white/40 text-[10px] md:text-xs font-display font-bold uppercase tracking-widest mt-2">Escuadras y Horarios Colectivos</p>
         </div>
         <button 
           onClick={() => setIsModalOpen(true)}
-          className="bg-neon-green text-black px-8 py-4 font-display font-black text-sm uppercase tracking-tighter italic -skew-x-12 hover:scale-105 transition-all shadow-[0_0_20px_rgba(156,255,147,0.3)] flex items-center space-x-2"
+          className="bg-neon-green text-black px-6 py-3 md:px-8 md:py-4 font-display font-black text-xs md:text-sm uppercase tracking-tighter italic -skew-x-12 hover:scale-105 transition-all shadow-[0_4px_20px_rgba(156,255,147,0.3)] flex items-center justify-center gap-2 w-full sm:w-auto"
         >
           <Plus className="w-4 h-4" />
           <span>NUEVO GRUPO</span>
@@ -134,29 +134,28 @@ export const Grupos = () => {
           >
             <div className="absolute top-0 right-0 w-32 h-32 bg-neon-green/5 blur-3xl -z-10 group-hover:bg-neon-green/10 transition-all" />
             
-            <div className="flex justify-between items-start mb-6">
+            <div className="flex justify-between items-start mb-4 md:mb-6">
               <div>
-                <h3 className="text-2xl font-display font-black italic tracking-tighter group-hover:text-neon-green transition-colors uppercase">
+                <h3 className="text-lg md:text-2xl font-display font-black italic tracking-tighter group-hover:text-neon-green transition-colors uppercase leading-tight">
                   {group.name}
                 </h3>
-                <div className="flex items-center space-x-4 mt-2">
-                  <div className="flex items-center text-white/70 text-[10px] font-bold uppercase tracking-widest">
-                    <Clock className="w-3 h-3 mr-1 text-neon-blue" />
+                <div className="flex items-center gap-3 mt-1">
+                  <div className="flex items-center text-white/40 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">
+                    <Clock className="w-2.5 h-2.5 mr-1 text-neon-blue" />
                     {group.training_hour}
                   </div>
-                  <div className="flex items-center text-white/70 text-[10px] font-bold uppercase tracking-widest">
-                    <CalendarIcon className="w-3 h-3 mr-1 text-neon-green" />
+                  <div className="flex items-center text-white/40 text-[8px] md:text-[10px] font-bold uppercase tracking-widest">
+                    <CalendarIcon className="w-2.5 h-2.5 mr-1 text-neon-green" />
                     {group.training_days.join(' ')}
                   </div>
                 </div>
               </div>
-              <div className="flex flex-col items-end space-y-2">
-                <div className="bg-white/5 py-1 px-3 rounded text-right">
-                  <p className="text-[9px] font-display font-black text-neon-blue uppercase tracking-widest leading-none mb-0.5">VALOR P/INTEGRANTE</p>
-                  <p className="font-display font-black text-lg leading-none">${Number(group.fee_per_session).toLocaleString('es-CL')}</p>
+              <div className="flex flex-col items-end gap-1">
+                <div className="bg-white/5 px-2 py-0.5 rounded text-right border border-white/5">
+                  <p className="font-display font-black text-xs md:text-lg leading-none">${Number(group.fee_per_session).toLocaleString('es-CL')}</p>
                 </div>
-                <div className="bg-white/5 px-3 py-1 rounded-full border border-white/10 w-fit">
-                  <span className="text-neon-blue font-display font-bold text-xs">{group.members?.length || 0} ATLETAS</span>
+                <div className="bg-white/5 px-2 py-0.5 rounded-full border border-white/10">
+                  <span className="text-neon-blue font-display font-bold text-[8px] md:text-[10px] tracking-widest uppercase">{group.members?.length || 0} ATLETAS</span>
                 </div>
               </div>
             </div>

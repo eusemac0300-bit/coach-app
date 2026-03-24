@@ -95,15 +95,15 @@ export const Dashboard = () => {
   const totalAsistenciasSemana = performanceData.reduce((sum, d) => sum + d.asistencias, 0);
 
   return (
-    <div className="space-y-8 md:space-y-12 pb-20">
-      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4">
+    <div className="space-y-6 md:space-y-12 pb-20">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 md:gap-4">
         <div>
-          <h2 className="text-white/60 text-sm font-display font-bold uppercase tracking-wider mb-2">Panel Central</h2>
-          <h1 className="text-4xl md:text-7xl font-display font-black tracking-tighter">
+          <h2 className="text-white/40 text-xs md:text-sm font-display font-bold uppercase tracking-widest mb-1 md:mb-2">Admin Panel</h2>
+          <h1 className="text-3xl md:text-7xl font-display font-black tracking-tighter leading-none">
             HOLA, <span className="text-neon-green uppercase italic -skew-x-12">{coachName}</span>.
           </h1>
         </div>
-        <Link to="/agenda" className="btn-primary group flex items-center space-x-2 italic -skew-x-12 shadow-[0_0_30px_rgba(156,255,147,0.2)] text-sm md:text-base">
+        <Link to="/agenda" className="btn-primary group flex items-center justify-center gap-2 px-6 py-3 md:px-8 md:py-4 italic -skew-x-12 shadow-[0_4px_20px_rgba(156,255,147,0.2)] text-sm w-full sm:w-auto">
           <Calendar size={18} fill="black" />
           <span>IR A LA AGENDA</span>
         </Link>
