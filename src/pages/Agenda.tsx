@@ -60,72 +60,67 @@ const SessionItem = ({ session, onStart, selectedDate, dbAttendances, setDbAtten
 
   return (
     <div className={`relative flex flex-col group transition-all border-l-4 ${isNow ? 'bg-neon-green/5 border-neon-green' : 'hover:bg-white/5 border-transparent'}`}>
-      <div className="flex items-start space-x-6 p-8">
-        <div className="w-24 text-right">
-          <p className={`font-display font-black text-3xl leading-none ${isNow ? 'text-neon-green animate-pulse' : 'text-white/40'}`}>
+      <div className="flex items-start gap-3 p-4 md:p-8">
+        {/* Hora */}
+        <div className="w-14 md:w-24 text-right shrink-0">
+          <p className={`font-display font-black text-xl md:text-3xl leading-none ${isNow ? 'text-neon-green animate-pulse' : 'text-white/40'}`}>
             {session.time}
           </p>
-          <span className="text-white/40 text-xs font-bold font-display uppercase tracking-widest leading-none">
+          <span className="text-white/40 text-[9px] font-bold font-display uppercase tracking-widest">
             {parseInt(session.time.split(':')[0]) < 12 ? 'AM' : 'PM'}
           </span>
         </div>
-        <div className="flex-1">
-          <div className="flex items-center space-x-3 mb-2">
-            <h4 className="font-display font-black text-3xl uppercase tracking-tighter italic -skew-x-12">{session.athlete}</h4>
+
+        {/* Contenido principal */}
+        <div className="flex-1 min-w-0">
+          <div className="flex flex-wrap items-center gap-2 mb-1">
+            <h4 className="font-display font-black text-base md:text-3xl uppercase tracking-tighter italic -skew-x-12 truncate">{session.athlete}</h4>
             {session.group && (
-              <span className="bg-neon-blue/10 text-neon-blue text-[10px] font-display font-black px-3 py-1 rounded-full border border-neon-blue/20 uppercase tracking-widest flex items-center shadow-[0_0_15px_rgba(0,243,255,0.1)]">
-                <Users size={12} className="mr-2" />
-                {session.group}
+              <span className="bg-neon-blue/10 text-neon-blue text-[9px] font-display font-black px-2 py-0.5 rounded-full border border-neon-blue/20 uppercase tracking-widest flex items-center">
+                <Users size={10} className="mr-1" />{session.group}
               </span>
             )}
           </div>
-          <div className="flex items-center space-x-4">
-             <div className="flex items-center space-x-2 text-white/40 text-[10px] font-display font-black uppercase tracking-widest bg-white/5 px-4 py-1.5 rounded-full">
-                <Clock size={12} />
-                <span>{session.duration} MIN</span>
-             </div>
-             <span className="text-[10px] font-display font-black uppercase tracking-widest text-neon-blue/60">{session.type}</span>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="flex items-center gap-1 text-white/40 text-[9px] font-display font-black uppercase tracking-widest bg-white/5 px-2 py-1 rounded-full">
+              <Clock size={10} />
+              <span>{session.duration} MIN</span>
+            </div>
+            <span className="text-[9px] font-display font-black uppercase tracking-widest text-neon-blue/60">{session.type}</span>
           </div>
         </div>
 
-        <div className="flex items-center space-x-4">
+        {/* Acciones - stacked on mobile */}
+        <div className="flex flex-col md:flex-row items-end md:items-center gap-2 shrink-0">
           <button 
             onClick={() => setIsReprogramming(true)}
-            className="p-4 bg-white/10 text-white/60 rounded-xl hover:bg-white/20 hover:text-white transition-all flex flex-col items-center justify-center space-y-1"
-            title="Reprogramar sesión"
+            className="p-2 md:p-4 bg-white/10 text-white/60 rounded-xl hover:bg-white/20 hover:text-white transition-all flex flex-col items-center"
+            title="Reprogramar"
           >
-            <CalendarIcon size={18} />
-            <span className="text-[8px] font-black uppercase tracking-widest">Mover</span>
+            <CalendarIcon size={14} />
+            <span className="text-[7px] font-black uppercase tracking-widest hidden md:block">Mover</span>
           </button>
-
-          <div className="text-right flex flex-col items-end px-4">
-            <div className="text-white/50 text-[10px] font-display font-black uppercase tracking-widest mb-1">Estado</div>
-            <p className={`font-display font-black tracking-tight text-sm ${session.status === 'completed' ? 'text-white/40' : 'text-neon-green'}`}>
-              {session.status === 'completed' ? 'FINALIZADO' : 'PROGRAMADO'}
-            </p>
-          </div>
-          
           <button 
             onClick={() => onStart(session.id, session.group ? 'grupo' : 'atleta')}
-            className={`flex items-center space-x-3 px-8 py-4 font-display font-black text-sm uppercase italic -skew-x-12 transition-all ${
+            className={`flex items-center gap-1 px-3 md:px-8 py-2 md:py-4 font-display font-black text-xs uppercase italic -skew-x-12 transition-all ${
               isNow 
               ? 'bg-neon-green text-black hover:scale-110 shadow-[0_10px_30px_rgba(156,255,147,0.3)]' 
               : 'bg-white/10 text-white/60 hover:bg-white/20 hover:text-white'
             }`}
           >
-            <Play size={18} fill={isNow ? "black" : "currentColor"} />
+            <Play size={14} fill={isNow ? "black" : "currentColor"} />
             <span>ENTRAR</span>
           </button>
         </div>
       </div>
 
       {session.attendees.length > 0 && (
-        <div className="px-32 pb-8 flex flex-col space-y-4">
-          <div className="flex items-center space-x-4">
-            <UserCheck size={16} className="text-white/30" />
-            <span className="text-[10px] font-display font-black text-white/50 uppercase tracking-widest">Marca de Asistencia:</span>
+        <div className="px-4 md:px-32 pb-4 md:pb-8 flex flex-col space-y-3">
+          <div className="flex items-center space-x-2">
+            <UserCheck size={14} className="text-white/30" />
+            <span className="text-[9px] font-display font-black text-white/50 uppercase tracking-widest">Asistencia:</span>
           </div>
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-2">
             {session.attendees.map((a: any) => {
               const isPresent = getIsAttending(a.id);
               return (
@@ -133,13 +128,13 @@ const SessionItem = ({ session, onStart, selectedDate, dbAttendances, setDbAtten
                   key={a.id} 
                   disabled={isUpdating}
                   onClick={() => toggleAttendance(a)}
-                  className={`flex items-center space-x-4 px-6 py-3 rounded-2xl font-display font-black text-[10px] uppercase tracking-[0.1em] border-2 transition-all ${
+                  className={`flex items-center gap-2 px-3 md:px-6 py-2 md:py-3 rounded-xl font-display font-black text-[9px] uppercase tracking-wider border-2 transition-all ${
                     isPresent 
-                    ? 'bg-neon-green text-black border-neon-green shadow-[0_0_30px_rgba(156,255,147,0.3)]' 
+                    ? 'bg-neon-green text-black border-neon-green shadow-[0_0_20px_rgba(156,255,147,0.3)]' 
                     : 'bg-white/10 border-white/10 text-white/50 hover:border-white/30'
                   } ${isUpdating ? 'opacity-50 cursor-wait' : ''}`}
                 >
-                  {isPresent ? <CheckCircle2 size={14} /> : <div className="w-3.5 h-3.5 rounded-full border border-current opacity-20" />}
+                  {isPresent ? <CheckCircle2 size={12} /> : <div className="w-3 h-3 rounded-full border border-current opacity-20" />}
                   <span>{a.name}</span>
                 </button>
               );
@@ -298,44 +293,46 @@ export const Agenda = () => {
   };
 
   return (
-    <div className="space-y-12 pb-20">
-      <header className="flex justify-between items-end">
+    <div className="space-y-6 md:space-y-12 pb-20">
+      <header className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-3">
         <div>
-          <h2 className="text-white/60 text-sm font-display font-bold uppercase tracking-wider mb-2">Cronograma</h2>
-          <h1 className="text-7xl font-display font-black tracking-tighter uppercase whitespace-pre">{currentMonthStr}</h1>
+          <h2 className="text-white/60 text-xs font-display font-bold uppercase tracking-wider mb-1">Cronograma</h2>
+          <h1 className="text-3xl md:text-7xl font-display font-black tracking-tighter uppercase">{currentMonthStr}</h1>
         </div>
-        <div className="flex items-center space-x-6">
-           <button className="btn-primary group flex items-center space-x-2 italic -skew-x-12">
-             <Plus size={20} fill="black" />
-             <span>PROGRAMAR</span>
-           </button>
-        </div>
+        <button className="btn-primary group flex items-center space-x-2 italic -skew-x-12 text-sm">
+          <Plus size={16} fill="black" />
+          <span>PROGRAMAR</span>
+        </button>
       </header>
 
-      {/* Date Selector (14 Days) */}
-      <div className="grid grid-cols-7 gap-4">
+      {/* Date Selector — scrollable on mobile */}
+      <div className="flex overflow-x-auto gap-2 pb-2 md:grid md:grid-cols-7 md:gap-4 scrollbar-hide">
         {days.map(day => (
            <div 
              key={day.iso} 
              onClick={() => setSelectedDateISO(day.iso)}
-             className={`p-6 cursor-pointer rounded-2xl transition-all border-none ${day.iso === selectedDateISO ? 'bg-neon-green text-black scale-105 shadow-[0_0_30px_rgba(156,255,147,0.3)]' : 'bg-surface-high text-white hover:bg-surface-highest hover:translate-y-[-4px]'}`}
+             className={`shrink-0 w-14 md:w-auto p-3 md:p-6 cursor-pointer rounded-xl md:rounded-2xl transition-all border-none text-center ${
+               day.iso === selectedDateISO 
+               ? 'bg-neon-green text-black scale-105 shadow-[0_0_20px_rgba(156,255,147,0.3)]' 
+               : 'bg-surface-high text-white hover:bg-surface-highest'
+             }`}
            >
-             <p className={`font-display font-bold text-xs uppercase tracking-widest mb-2 ${day.iso === selectedDateISO ? 'text-black/60' : 'text-white/50'}`}>{day.name}</p>
-             <p className="text-4xl font-display font-black italic transform -skew-x-12">{day.num}</p>
+             <p className={`font-display font-bold text-[9px] uppercase tracking-widest mb-1 ${day.iso === selectedDateISO ? 'text-black/60' : 'text-white/50'}`}>{day.name}</p>
+             <p className="text-xl md:text-4xl font-display font-black italic -skew-x-12">{day.num}</p>
            </div>
         ))}
       </div>
 
       {/* Daily Sessions List */}
       <div className="glass-card bg-surface-low border-none overflow-hidden">
-          <div className="bg-surface-high/50 px-8 py-10 border-b border-white/5 flex items-center justify-between">
-           <div className="flex items-baseline space-x-4">
-              <span className="text-6xl font-display font-black tracking-tighter uppercase">{selectedDayName} {selectedDayObj.num}</span>
-              {isToday && <span className="text-neon-green font-display font-bold uppercase tracking-widest text-sm">— SESIONES DE HOY —</span>}
+          <div className="bg-surface-high/50 px-4 md:px-8 py-5 md:py-10 border-b border-white/5 flex items-center justify-between gap-2">
+           <div className="flex flex-wrap items-baseline gap-2">
+              <span className="text-2xl md:text-6xl font-display font-black tracking-tighter uppercase">{selectedDayName} {selectedDayObj.num}</span>
+              {isToday && <span className="text-neon-green font-display font-bold uppercase tracking-widest text-xs">HOY</span>}
            </div>
-            <div className="flex items-center space-x-2 text-white/60 font-display font-bold text-xs uppercase tracking-widest bg-white/10 px-4 py-2 rounded-full">
-              <CalendarIcon size={14} />
-              <span>{sessionsByDay.length} SESIONES</span>
+            <div className="flex items-center gap-1 text-white/60 font-display font-bold text-[10px] uppercase tracking-wider bg-white/10 px-3 py-1.5 rounded-full shrink-0">
+              <CalendarIcon size={12} />
+              <span>{sessionsByDay.length} SES.</span>
            </div>
         </div>
         <div className="divide-y divide-white/5">
