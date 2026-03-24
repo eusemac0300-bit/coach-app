@@ -388,7 +388,6 @@ export const CierreMes = () => {
               );
             })
           ) : (
-          ) : (
              <div className="py-24 text-center space-y-4">
               <DollarSign size={48} className="mx-auto text-white/5" />
               <p className="text-white/20 font-display font-black italic text-2xl uppercase tracking-widest">Sin atletas registrados</p>
